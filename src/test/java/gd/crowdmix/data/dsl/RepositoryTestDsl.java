@@ -1,4 +1,8 @@
-package gd.crowdmix.data;
+package gd.crowdmix.data.dsl;
+
+import gd.crowdmix.data.InMemoryRepository;
+import gd.crowdmix.data.Message;
+import gd.crowdmix.data.WallMessage;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package gd.crowdmix.data;
 
+import gd.crowdmix.data.dsl.UserTestDsl;
 import org.joda.time.Instant;
 import org.junit.Test;
 

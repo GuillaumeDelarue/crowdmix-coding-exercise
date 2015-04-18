@@ -1,5 +1,6 @@
 package gd.crowdmix.data;
 
+import gd.crowdmix.data.dsl.RepositoryTestDsl;
 import org.junit.Test;
 
 import java.util.Arrays;
