@@ -1,7 +1,7 @@
 package gd.crowdmix.parser;
 
-import com.sun.deploy.util.StringUtils;
 import gd.crowdmix.command.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

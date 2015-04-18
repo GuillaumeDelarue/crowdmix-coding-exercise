@@ -4,10 +4,12 @@ CROWDMIX CODING EXERCISE
 
 Done on 18/04/2015 by Guillaume Delarue
 Using IntelliJ IDEA 14.1.1
-Libraries used: Java 7, JUnit 4.7, Hamcrest 1.1, JMock 2.5.1, JodaTime 2.4
+Libraries used: Java 7, Maven, JUnit 4, Hamcrest, JMock 2, JodaTime
 
+Uses Maven for automatic build
 Published to GitHub public project: https://github.com/GuillaumeDelarue/crowdmix-coding-exercise
-All the dependencies are included in lib/
 
-To run it: compile the sources (in src/java/gd/crowdmix) and execute gd.crowdmix.main.Application
+To run it:
+* compile the sources (in src/java/gd/crowdmix) in an IDE or using the provided Maven build script
+* execute gd.crowdmix.main.Application (no parameters)
 
