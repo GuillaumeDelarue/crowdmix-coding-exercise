@@ -15,6 +15,7 @@ public class Application {
         final ApplicationAssembly assembly = new ApplicationAssembly(new InMemoryRepository(), new ConsoleInputCommandParser(), new ConsoleOutput());
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+        //noinspection InfiniteLoopStatement
         while (true) {
             System.out.print(prompt);
             assembly.processCommand(reader.readLine());

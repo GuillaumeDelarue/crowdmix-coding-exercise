@@ -11,5 +11,5 @@ Published to GitHub public project: https://github.com/GuillaumeDelarue/crowdmix
 
 To run it:
 * compile the sources (in src/java/gd/crowdmix) in an IDE or using the provided Maven build script
-* execute gd.crowdmix.main.Application (no parameters)
+* execute Application (no parameters)
 
