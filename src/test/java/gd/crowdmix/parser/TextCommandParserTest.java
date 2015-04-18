@@ -7,8 +7,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
-public class ConsoleInputCommandParserTest {
-    private final ConsoleInputCommandParser parser = new ConsoleInputCommandParser();
+public class TextCommandParserTest {
+    private final TextCommandParser parser = new TextCommandParser();
 
     @Test
     public void parseRequestTimelineCommand() {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ConsoleInputCommandParser implements CommandParser {
+public class TextCommandParser implements CommandParser {
     final static String WALL_COMMAND = "wall";
     final static String FOLLOWS_COMMAND = "follows";
     final static String PUBLISH_OPERATOR = "->";
