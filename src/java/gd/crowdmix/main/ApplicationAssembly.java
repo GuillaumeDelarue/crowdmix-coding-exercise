@@ -18,7 +18,6 @@ public class ApplicationAssembly {
 
     public void processCommand(String commandLine) {
         final Command command = commandParser.parseCommand(commandLine);
-        command.execute(data);
-        command.displayResult(output);
+        command.execute(data, output);
     }
 }

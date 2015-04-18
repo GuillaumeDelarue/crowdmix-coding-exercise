@@ -2,25 +2,31 @@ package gd.crowdmix.data;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import java.util.Arrays;
 
-public class InMemoryRepositoryTest {
-    private final InMemoryRepository data = new InMemoryRepository();
+import static gd.crowdmix.util.TestValuesFactory.aString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+public class InMemoryRepositoryTest extends RepositoryTestDsl {
 
     @Test
-    public void createNewUser() throws Exception {
-        final String userName = "Charlie";
-        final User expectedUser = new User(userName);
-        assertThat(data.users.contains(expectedUser), is(false));
-        assertThat(data.findOrCreateUser(userName), is(equalTo(expectedUser)));
-        assertThat(data.users.contains(expectedUser), is(true));
+    public void createUserIfDoesNotExistWhenRequestingTimeline() {
+        assertThat(data.users.contains(new UserDetails(user)), is(false));
+        data.userTimeline(user);
+        assertThat(data.users.contains(new UserDetails(user)), is(true));
     }
 
     @Test
-    public void findExistingUser() throws Exception {
-        final String userName = "Alice";
-        final User expectedUser = data.findOrCreateUser(userName);
-        assertThat(data.findOrCreateUser(userName), is(sameInstance(expectedUser)));
+    public void userTimelineListsAllPublishedMessages() {
+        whenUserHasPublishedMessages(user, message1, message2);
+        thenTimelineListsTheMessages(user, message1, message2);
+    }
+
+    @Test
+    public void userWallListsAllPublishedMessagesFromUserAndFollowedUsers() {
+        String followedUser = aString(8);
+        whenUserHasMessagesAndFollowsAnotherUser(user, Arrays.asList(message1, message2), followedUser, Arrays.asList(message3, message4));
+        thenWallListsTheMessages(user, Arrays.asList(message1, message2), followedUser, Arrays.asList(message3, message4));
     }
 }

@@ -5,11 +5,11 @@ import org.joda.time.Instant;
 
 import java.util.*;
 
-public class User extends CaseClassOne<String> {
+public class UserDetails extends CaseClassOne<String> {
     private final List<Message> timeline = new ArrayList<>();
-    private final Set<User> follows = new HashSet<>();
+    private final Set<UserDetails> follows = new HashSet<>();
 
-    public User(String name) {
+    public UserDetails(String name) {
         super(name);
     }
 
@@ -21,7 +21,7 @@ public class User extends CaseClassOne<String> {
         timeline.add(new Message(time, message));
     }
 
-    public void follows(User userToFollow) {
+    public void follows(UserDetails userToFollow) {
         follows.add(userToFollow);
     }
 
@@ -33,18 +33,14 @@ public class User extends CaseClassOne<String> {
 
     public List<WallMessage> wall() {
         final List<WallMessage> wallMessages = generateWallMessagesFor(this);
-        for (User followed : follows) {
-            wallMessages.addAll(generateWallMessagesFor(followed));
-        }
+        for (UserDetails followed : follows) wallMessages.addAll(generateWallMessagesFor(followed));
         Collections.sort(wallMessages);
         return wallMessages;
     }
 
-    private List<WallMessage> generateWallMessagesFor(User user) {
+    private List<WallMessage> generateWallMessagesFor(UserDetails user) {
         final List<WallMessage> messages = new ArrayList<>();
-        for (Message message : user.timeline) {
-            messages.add(new WallMessage(user, message));
-        }
+        for (Message message : user.timeline) messages.add(new WallMessage(user.name(), message));
         return messages;
     }
 }

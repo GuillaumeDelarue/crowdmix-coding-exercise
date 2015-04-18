@@ -1,10 +1,8 @@
 package gd.crowdmix.command;
 
 import gd.crowdmix.data.Repository;
-import gd.crowdmix.data.User;
 import gd.crowdmix.ui.Output;
 import gd.crowdmix.util.CaseClassTwo;
-import org.joda.time.Instant;
 
 public class PublishMessage extends CaseClassTwo<String, String> implements Command {
 
@@ -13,12 +11,7 @@ public class PublishMessage extends CaseClassTwo<String, String> implements Comm
     }
 
     @Override
-    public void execute(Repository data) {
-        data.findOrCreateUser($1).publish(new Instant(), $2);
-    }
-
-    @Override
-    public void displayResult(Output output) {
-        // no output
+    public void execute(Repository data, Output output) {
+        data.publishMessage($1, $2);
     }
 }

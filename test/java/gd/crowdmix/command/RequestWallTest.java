@@ -1,35 +1,44 @@
 package gd.crowdmix.command;
 
-import gd.crowdmix.data.User;
+import gd.crowdmix.data.Repository;
 import gd.crowdmix.data.WallMessage;
+import gd.crowdmix.ui.Output;
 import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.joda.time.Instant;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
-public class RequestWallTest extends CommandTesting {
+import static gd.crowdmix.util.TestValuesFactory.aString;
+import static gd.crowdmix.util.TestValuesFactory.aWallMessage;
+
+public class RequestWallTest {
+    private final Mockery mockery = new Mockery();
+    private final Repository data = mockery.mock(Repository.class);
+    private final Output output = mockery.mock(Output.class);
+
+    private final String userName = aString(8);
     private final RequestWall command = new RequestWall(userName);
+    private final WallMessage wallMessage1 = aWallMessage(new Instant());
+    private final WallMessage wallMessage2 = aWallMessage(new Instant());
+    private final WallMessage wallMessage3 = aWallMessage(new Instant());
+    private final WallMessage wallMessage4 = aWallMessage(new Instant());
 
     @Test
-    public void displayTheWallOfTheUser() throws Exception {
-        final User foundUser = setupUserWithWall(
-                userName, new HashSet<>(Arrays.asList(message1, message2)),
-                "followedUser", new HashSet<>(Arrays.asList(message3, message4)));
+    public void displayTheWallOfTheUser() {
         mockery.checking(new Expectations() {{
-            oneOf(data).findOrCreateUser(userName);
-            will(returnValue(foundUser));
+            oneOf(data).userWall(userName);
+            will(returnValue(Arrays.asList(wallMessage1, wallMessage2, wallMessage3, wallMessage4)));
         }});
         mockery.checking(new Expectations() {{
-            final User followedUser = new User("followedUser");
-            oneOf(output).displayWallMessage(new WallMessage(foundUser, message1));
-            oneOf(output).displayWallMessage(new WallMessage(foundUser, message2));
-            oneOf(output).displayWallMessage(new WallMessage(followedUser, message3));
-            oneOf(output).displayWallMessage(new WallMessage(followedUser, message4));
+            oneOf(output).displayWallMessage(wallMessage1);
+            oneOf(output).displayWallMessage(wallMessage2);
+            oneOf(output).displayWallMessage(wallMessage3);
+            oneOf(output).displayWallMessage(wallMessage4);
         }});
 
-        command.execute(data);
-        command.displayResult(output);
+        command.execute(data, output);
         mockery.assertIsSatisfied();
     }
 }

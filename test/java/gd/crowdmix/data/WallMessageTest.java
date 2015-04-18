@@ -11,8 +11,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class WallMessageTest {
-    private final User user1 = new User("Charlie");
-    private final User user2 = new User("Alice");
+    private final String user1 = "Charlie";
     private final Message message1 = new Message(new Instant(), "I love the weather today");
     private final Message message2 = new Message(new Instant().plus(10000), "Damn! We lost!");
 
@@ -20,6 +19,7 @@ public class WallMessageTest {
 
     @Test
     public void equalsAndHashcodeDependOnUserAndMessage() {
+        final String user2 = "Alice";
         final WallMessage sameWallMessage = new WallMessage(user1, message1);
         final WallMessage differentWallMessage = new WallMessage(user2, message2);
         final WallMessage differentWallMessageWithSameUser = new WallMessage(user1, message2);
@@ -35,9 +35,9 @@ public class WallMessageTest {
     @Test
     public void wallMessageNaturalComparisonOrderIsSameAsMessage() {
         final Instant baseTime = new Instant();
-        final WallMessage first = new WallMessage(new User("1"), new Message(baseTime, "first message"));
-        final WallMessage second = new WallMessage(new User("3"), new Message(baseTime.plus(10000), "second message"));
-        final WallMessage third = new WallMessage(new User("2"), new Message(baseTime.plus(50000), "third message"));
+        final WallMessage first = new WallMessage("1", new Message(baseTime, "first message"));
+        final WallMessage second = new WallMessage("3", new Message(baseTime.plus(10000), "second message"));
+        final WallMessage third = new WallMessage("2", new Message(baseTime.plus(50000), "third message"));
 
         final List<WallMessage> actual = Arrays.asList(second, first, third);
         Collections.sort(actual);

@@ -1,23 +1,29 @@
 package gd.crowdmix.command;
 
+import gd.crowdmix.data.Repository;
+import gd.crowdmix.ui.Output;
 import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Test;
 
-public class PublishMessageTest extends CommandTesting {
-    private final String message = "Test message";
+import static gd.crowdmix.util.TestValuesFactory.aString;
+
+public class PublishMessageTest {
+    private final Mockery mockery = new Mockery();
+    private final Repository data = mockery.mock(Repository.class);
+    private final Output output = mockery.mock(Output.class);
+
+    private final String userName = aString(8);
+    private final String message = aString(100);
     private final PublishMessage command = new PublishMessage(userName, message);
 
     @Test
-    public void addFollowedUserToInitialUserAndNoOutput() throws Exception {
+    public void addFollowedUserToInitialUserAndNoOutput() {
         mockery.checking(new Expectations() {{
-            oneOf(data).findOrCreateUser(userName);
-            will(returnValue(user));
+            oneOf(data).publishMessage(userName, message);
         }});
 
-        command.execute(data);
-        command.displayResult(output);
-
-        // TODO: Test that the user is actually added to follows set! how??? By checking wall?
+        command.execute(data, output);
         mockery.assertIsSatisfied();
     }
 }

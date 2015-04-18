@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConsoleInputCommandParser implements CommandParser {
-    final static String EXIT_COMMAND = "exit";
     final static String WALL_COMMAND = "wall";
     final static String FOLLOWS_COMMAND = "follows";
     final static String PUBLISH_OPERATOR = "->";
@@ -16,9 +15,7 @@ public class ConsoleInputCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String commandLine) {
         final List<String> tokens = new ArrayList<>(Arrays.asList(commandLine.split(" ")));
-        if (tokens.size() == 1 && tokens.get(0).equals(EXIT_COMMAND)) {
-            return new Exit();
-        } else if (tokens.size() == 1) {
+        if (tokens.size() == 1) {
             return new RequestTimeline(tokens.get(0));
         } else if (tokens.size() == 2 && tokens.get(1).toLowerCase().equals(WALL_COMMAND)) {
             return new RequestWall(tokens.get(0));

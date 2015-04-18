@@ -11,12 +11,7 @@ public class FollowUser extends CaseClassTwo<String, String> implements Command 
     }
 
     @Override
-    public void execute(Repository data) {
-        data.findOrCreateUser($1).follows(data.findOrCreateUser($2));
-    }
-
-    @Override
-    public void displayResult(Output output) {
-        // No output
+    public void execute(Repository data, Output output) {
+        data.follow($1, $2);
     }
 }

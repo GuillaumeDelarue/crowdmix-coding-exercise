@@ -1,29 +1,27 @@
 package gd.crowdmix.command;
 
-import gd.crowdmix.data.User;
+import gd.crowdmix.data.Repository;
+import gd.crowdmix.ui.Output;
 import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Test;
 
-public class FollowUserTest extends CommandTesting {
+public class FollowUserTest {
+    protected final Mockery mockery = new Mockery();
+    protected final Repository data = mockery.mock(Repository.class);
+    protected final Output output = mockery.mock(Output.class);
+
+    protected final String userName = "Charlie";
     private final String followedUserName = "followed";
     private final FollowUser command = new FollowUser(userName, followedUserName);
 
     @Test
-    public void addFollowedUserToInitialUserAndNoOutput() throws Exception {
-        final User followedUser = setupUserWithTimeline(followedUserName, message3, message4);
+    public void addFollowedUserToInitialUserAndNoOutput() {
         mockery.checking(new Expectations() {{
-            oneOf(data).findOrCreateUser(userName);
-            will(returnValue(user));
-        }});
-        mockery.checking(new Expectations() {{
-            oneOf(data).findOrCreateUser(followedUserName);
-            will(returnValue(followedUser));
+            oneOf(data).follow(userName, followedUserName);
         }});
 
-        command.execute(data);
-        command.displayResult(output);
-
-        // TODO: Test that the user is actually added to follows set! how??? By checking wall?
+        command.execute(data, output);
         mockery.assertIsSatisfied();
     }
 }

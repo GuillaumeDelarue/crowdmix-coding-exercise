@@ -25,10 +25,7 @@ public class ApplicationAssemblyTest {
             will(returnValue(command));
         }});
         mockery.checking(new Expectations() {{
-            oneOf(command).execute(data);
-        }});
-        mockery.checking(new Expectations() {{
-            oneOf(command).displayResult(output);
+            oneOf(command).execute(data, output);
         }});
 
         assembly.processCommand(commandLine);

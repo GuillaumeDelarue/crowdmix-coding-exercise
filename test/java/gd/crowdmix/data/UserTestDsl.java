@@ -8,25 +8,25 @@ import static org.junit.Assert.assertThat;
 
 public class UserTestDsl {
 
-    protected void whenUserPublishesMessages(User user, Message... messages) {
+    protected void whenUserPublishesMessages(UserDetails user, Message... messages) {
         for (Message message : messages) {
             user.publish(message.timestamp(), message.content());
         }
     }
 
-    protected void andUserPublishesMessages(User user, Message... messages) {
+    protected void andUserPublishesMessages(UserDetails user, Message... messages) {
         whenUserPublishesMessages(user, messages);
     }
 
-    protected void andUserFollows(User user, User followed) {
+    protected void andUserFollows(UserDetails user, UserDetails followed) {
         user.follows(followed);
     }
 
-    protected void thenUserTimelineShouldBe(User user, Message... timeline) {
+    protected void thenUserTimelineShouldBe(UserDetails user, Message... timeline) {
         assertThat(user.timeline(), is(equalTo(Arrays.asList(timeline))));
     }
 
-    protected void andUserWallShouldBe(User user, WallMessage... wall) {
+    protected void andUserWallShouldBe(UserDetails user, WallMessage... wall) {
         assertThat(user.wall(), is(equalTo(Arrays.asList(wall))));
     }
 }

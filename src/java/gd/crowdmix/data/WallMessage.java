@@ -1,14 +1,15 @@
 package gd.crowdmix.data;
 
+import com.sun.istack.internal.NotNull;
 import gd.crowdmix.util.CaseClassTwo;
 
-public class WallMessage extends CaseClassTwo<User, Message> implements Comparable<WallMessage> {
+public class WallMessage extends CaseClassTwo<String, Message> implements Comparable<WallMessage> {
 
-    public WallMessage(User user, Message message) {
-        super(user, message);
+    public WallMessage(String username, Message message) {
+        super(username, message);
     }
 
-    public User user() {
+    public String user() {
         return $1;
     }
 

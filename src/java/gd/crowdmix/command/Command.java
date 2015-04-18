@@ -5,7 +5,5 @@ import gd.crowdmix.ui.Output;
 
 public interface Command {
 
-    void execute(Repository data);
-
-    void displayResult(Output output);
+    void execute(Repository data, Output output);
 }

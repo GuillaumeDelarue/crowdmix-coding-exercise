@@ -22,6 +22,6 @@ public class ConsoleOutput implements Output {
     }
 
     String formatted(WallMessage message) {
-        return String.format("%s - %s (%s)", message.user().name(), message.message().content(), elapsedTimeSince(message.message().timestamp()));
+        return String.format("%s - %s (%s)", message.user(), message.message().content(), elapsedTimeSince(message.message().timestamp()));
     }
 }

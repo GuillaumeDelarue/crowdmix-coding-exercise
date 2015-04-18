@@ -3,18 +3,12 @@ package gd.crowdmix.parser;
 import gd.crowdmix.command.*;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class ConsoleInputCommandParserTest {
     private final ConsoleInputCommandParser parser = new ConsoleInputCommandParser();
-
-    @Test
-    public void parseExitCommand() {
-        final Command expectedCommand = new Exit();
-        assertThat(parser.parseCommand("exit"), is(expectedCommand));
-    }
 
     @Test
     public void parseRequestTimelineCommand() {
