@@ -1,0 +1,14 @@
+========================
+CROWDMIX CODING EXERCISE
+========================
+
+Done on 18/04/2015 by Guillaume Delarue
+Using IntelliJ IDEA 14.1.1
+Libraries used: Java 7, JUnit 4.7, Hamcrest 1.1, JMock 2.5.1, JodaTime 2.4
+
+Published to GitHub public project: https://github.com/GuillaumeDelarue/crowdmix-coding-exercise
+
+To run it: compile the sources (in src/java/gd/crowdmix) and execute gd.crowdmix.main.Application
+Or (UNIX) run script: deployment/runapp.sh
+Or (Windows) run batch file: deployment/runapp.bat
+
