@@ -4,11 +4,15 @@ import gd.crowdmix.command.*;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TextCommandParserTest {
     private final TextCommandParser parser = new TextCommandParser();
+
+    @Test
+    public void parseExitCommand() {
+        assertTrue("Command should be Exit", parser.parseCommand("exit") instanceof Exit);
+    }
 
     @Test
     public void parseRequestTimelineCommand() {

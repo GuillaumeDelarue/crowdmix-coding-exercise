@@ -19,6 +19,7 @@ Design notes:
 * Data classes and commands all extend CaseClassOne or CaseClassTwo (similar to Scala case classes) that contain the members and equals/hashcode/toString
 * Repository is abstracted out "Repository" interface) so we can plug any implementation we want (database based or different) - InMemoryRepository is provided
 * Time Provider: to separate I/O accesses from the main business logic, system time is accessed through an interface (that also helps for testing time format, mocking time, etc.)
+* Added "exit" command to gracefully exit the application
 
 Testing:
 * All tests can be ran using maven "test"

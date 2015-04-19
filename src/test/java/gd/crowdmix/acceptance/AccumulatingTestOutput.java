@@ -12,4 +12,9 @@ public class AccumulatingTestOutput implements Output {
     public void displayMessage(String message) {
         messages.add(message);
     }
+
+    @Override
+    public void exitApplication() {
+        // nothing here
+    }
 }
