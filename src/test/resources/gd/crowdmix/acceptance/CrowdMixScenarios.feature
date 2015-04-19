@@ -20,18 +20,6 @@ Feature: CrowdMix social networking application
       | Good game though (1 minute ago) |
       | Damn! we lost! (2 minutes ago)  |
 
-  Scenario: Charlie can subscribe to Alice's timeline, and view an aggregated list of all subscriptions
-    Given system time is now 10:35:00
-    And processing command Alice -> I love the weather today
-    And system time is now 10:39:58
-    And processing command Charlie -> I'm in New York today! Anyone wants to have a coffee?
-    And processing command Charlie follows Alice
-    And system time is now 10:40:00
-    When processing command Charlie wall
-    Then output is
-      | Charlie - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago) |
-      | Alice - I love the weather today (5 minutes ago)                                |
-
   Scenario: Charlie can subscribe to Alice's and Bob's timeline, and view an aggregated list of all subscriptions
     Given system time is now 10:35:00
     And processing command Alice -> I love the weather today
