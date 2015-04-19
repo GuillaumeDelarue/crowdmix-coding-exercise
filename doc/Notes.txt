@@ -15,15 +15,16 @@ To run it:
 
 Design notes:
 * As per instructions, no handling of exception for "unknown command" or any other problematic scenario is done
-* Separation of concerns: the main assembly contains a command parser, an output, a time provider (system time I/O), a repository to access / modify data (all interfaces for dependency injection)
-* Data classes all extend CaseClassOne or CaseClassTwo (similar to Scala case classes) that contain the members and equals/hashcode/toString
+* Separation of concerns: the main assembly contains a command parser (input), an output, a time provider (system time I/O) and a repository (data access) - all are interfaces for dependency injection
+* Data classes and commands all extend CaseClassOne or CaseClassTwo (similar to Scala case classes) that contain the members and equals/hashcode/toString
+* Repository is abstracted out "Repository" interface) so we can plug any implementation we want (database based or different) - InMemoryRepository is provided
 * Time Provider: to separate I/O accesses from the main business logic, system time is accessed through an interface (that also helps for testing time format, mocking time, etc.)
 
 Testing:
 * All tests can be ran using maven "test"
 * Done using TDD, test coverage should approach 100% (except console output and main application)
 * Used JMock 2 to mock dependencies (as interfaces)
-* Acceptance testing using Cucumber and a feature file (CrowdMixScenarios.feature) - runs as part of the Maven build ("test")
+* Acceptance testing using Cucumber and a feature file (CrowdMixScenarios.feature) - runs as part of the Maven build ("test") or can be ran directly in IDE with proper plugin
 * There is a dsl for unit-tests tests written in a natural way (when/then), for the repository and user details, to make them more readable
 
 ---
