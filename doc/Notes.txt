@@ -10,7 +10,7 @@ Uses Maven for automatic build
 Published to GitHub public project: https://github.com/GuillaumeDelarue/crowdmix-coding-exercise
 
 To run it:
-* compile the sources (in src/java/gd/crowdmix) in an IDE or using the provided Maven build script
+* compile the sources (in src/main/java/gd/crowdmix) in an IDE or using the provided Maven build script
 * execute Application (no parameters)
 
 Design notes:
