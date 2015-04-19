@@ -2,8 +2,14 @@ package gd.crowdmix.data.dsl;
 
 import gd.crowdmix.data.InMemoryRepository;
 import gd.crowdmix.data.Message;
+import gd.crowdmix.data.Repository;
 import gd.crowdmix.data.WallMessage;
+import gd.crowdmix.time.TimeProvider;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.joda.time.Instant;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static gd.crowdmix.util.TestValuesFactory.aString;
@@ -12,7 +18,10 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class RepositoryTestDsl {
-    protected final InMemoryRepository data = new InMemoryRepository();
+    private final Mockery mockery = new Mockery();
+    private final TimeProvider timeProvider = mockery.mock(TimeProvider.class);
+    protected final InMemoryRepository data = new InMemoryRepository(timeProvider);
+
     protected final String user = aString(8);
     protected final String message1 = aString(100);
     protected final String message2 = aString(100);
@@ -20,13 +29,20 @@ public class RepositoryTestDsl {
     protected final String message4 = aString(100);
 
     protected void whenUserHasPublishedMessages(String user, String... messages) {
-        for (String message : messages) data.publishMessage(user, message);
+        for (String message : messages) {
+            mockery.checking(new Expectations() {{
+                oneOf(timeProvider).now();
+                will(returnValue(new Instant()));
+            }});
+            data.publishMessage(user, message);
+        }
     }
 
     protected void thenTimelineListsTheMessages(String user, String... messages) {
         final List<Message> timeline = data.userTimeline(user);
         assertThat(timeline.size(), is(messages.length));
         for (String message : messages) assertThatMessageIsContainedIn(message, timeline);
+        mockery.assertIsSatisfied();
     }
 
     protected void thenWallListsTheMessages(String user, List<String> messages, String followed, List<String> messagesFromFollowed) {
@@ -34,6 +50,7 @@ public class RepositoryTestDsl {
         assertThat(wall.size(), is(messages.size() + messagesFromFollowed.size()));
         for (String message : messages) assertThatMessageIsContainedIn(message, user, wall);
         for (String message : messagesFromFollowed) assertThatMessageIsContainedIn(message, followed, wall);
+        mockery.assertIsSatisfied();
     }
 
     protected void whenUserHasMessagesAndFollowsAnotherUser(String user, List<String> messages, String followed, List<String> messagesFromFollowed) {

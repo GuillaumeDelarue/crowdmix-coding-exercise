@@ -1,5 +1,6 @@
 package gd.crowdmix.data;
 
+import gd.crowdmix.time.TimeProvider;
 import org.joda.time.Instant;
 
 import java.util.HashSet;
@@ -7,7 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 public class InMemoryRepository implements Repository {
+    private final TimeProvider timeProvider;
     final Set<UserDetails> users = new HashSet<>();
+
+    public InMemoryRepository(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
+    }
 
     @Override
     public List<Message> userTimeline(String username) {
@@ -26,7 +32,7 @@ public class InMemoryRepository implements Repository {
 
     @Override
     public void publishMessage(String user, String content) {
-        findOrCreateUser(user).publish(new Instant(), content);
+        findOrCreateUser(user).publish(timeProvider.now(), content);
     }
 
     private UserDetails findOrCreateUser(String username) {

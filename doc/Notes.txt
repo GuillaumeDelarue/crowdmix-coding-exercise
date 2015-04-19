@@ -13,3 +13,9 @@ To run it:
 * compile the sources (in src/java/gd/crowdmix) in an IDE or using the provided Maven build script
 * execute Application (no parameters)
 
+Design notes:
+* done using TDD, test coverage should approach 100% (except console output and main application)
+* as per instructions, no handling of exception for "unknown command" or any other problematic scenario is done
+* separation of concern: the main assembly contains a command parser, an output and a repository to access / modify data (all interfaces for dependency injection)
+* data classes all extend CaseClassOne or CaseClassTwo (similar to Scala case classes) that contain the members and equals/hashcode/toString
+* there is a dsl for tests written in a natural way (when/then), for the repository and user details, to make them more readable
