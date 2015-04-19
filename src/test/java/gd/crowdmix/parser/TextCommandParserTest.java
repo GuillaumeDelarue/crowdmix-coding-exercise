@@ -10,11 +10,6 @@ public class TextCommandParserTest {
     private final TextCommandParser parser = new TextCommandParser();
 
     @Test
-    public void parseExitCommand() {
-        assertTrue("Command should be Exit", parser.parseCommand("exit") instanceof Exit);
-    }
-
-    @Test
     public void parseRequestTimelineCommand() {
         final Command expectedCommand = new RequestTimeline("Charlie");
         assertThat(parser.parseCommand("Charlie"), is(expectedCommand));
@@ -36,6 +31,11 @@ public class TextCommandParserTest {
     public void parseFollowUserCommand() {
         final Command expectedCommand = new FollowUser("Charlie", "Alice");
         assertThat(parser.parseCommand("Charlie follows Alice"), is(expectedCommand));
+    }
+
+    @Test
+    public void parseExitCommand() {
+        assertTrue("Command should be Exit", parser.parseCommand("exit") instanceof Exit);
     }
 
     @Test

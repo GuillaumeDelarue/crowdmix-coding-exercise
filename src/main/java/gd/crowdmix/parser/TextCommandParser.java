@@ -26,7 +26,7 @@ public class TextCommandParser implements CommandParser {
             final String username = tokens.remove(0);
             tokens.remove(0);
             return new PublishMessage(username, StringUtils.join(tokens, " "));
-        } else if (tokens.size() == 3 && tokens.get(1).equals(FOLLOWS_COMMAND)) {
+        } else if (tokens.size() == 3 && tokens.get(1).toLowerCase().equals(FOLLOWS_COMMAND.toLowerCase())) {
             return new FollowUser(tokens.get(0), tokens.get(2));
         }
         throw new IllegalArgumentException("Unknown command: [" + commandLine + "]");
