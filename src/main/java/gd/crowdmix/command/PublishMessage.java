@@ -1,6 +1,7 @@
 package gd.crowdmix.command;
 
 import gd.crowdmix.data.Repository;
+import gd.crowdmix.time.TimeProvider;
 import gd.crowdmix.ui.Output;
 import gd.crowdmix.util.CaseClassTwo;
 
@@ -11,7 +12,7 @@ public class PublishMessage extends CaseClassTwo<String, String> implements Comm
     }
 
     @Override
-    public void execute(Repository data, Output output) {
-        data.publishMessage($1, $2);
+    public void execute(Repository data, Output output, TimeProvider timeProvider) {
+        data.publishMessage(timeProvider, $1, $2);
     }
 }

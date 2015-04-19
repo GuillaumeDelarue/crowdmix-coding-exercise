@@ -1,6 +1,7 @@
 package gd.crowdmix.command;
 
 import gd.crowdmix.data.Repository;
+import gd.crowdmix.time.TimeProvider;
 import gd.crowdmix.ui.Output;
 import gd.crowdmix.util.CaseClassTwo;
 
@@ -11,7 +12,7 @@ public class FollowUser extends CaseClassTwo<String, String> implements Command 
     }
 
     @Override
-    public void execute(Repository data, Output output) {
+    public void execute(Repository data, Output output, TimeProvider timeProvider) {
         data.follow($1, $2);
     }
 }

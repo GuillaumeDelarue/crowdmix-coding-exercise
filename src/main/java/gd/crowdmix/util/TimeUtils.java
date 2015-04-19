@@ -8,8 +8,8 @@ public class TimeUtils {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
-    public static String elapsedTimeSince(Instant since) {
-        final long difference = new Instant().getMillis() - since.getMillis();
+    public static String elapsedTimeBetween(Instant now, Instant since) {
+        final long difference = now.getMillis() - since.getMillis();
         if (difference < 2 * SECOND_MILLIS) {
             return "1 second ago";
         } else if (difference < MINUTE_MILLIS) {

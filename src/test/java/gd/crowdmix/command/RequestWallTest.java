@@ -3,6 +3,7 @@ package gd.crowdmix.command;
 import gd.crowdmix.data.Message;
 import gd.crowdmix.data.Repository;
 import gd.crowdmix.data.WallMessage;
+import gd.crowdmix.time.TimeProvider;
 import gd.crowdmix.ui.Output;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -20,6 +21,7 @@ public class RequestWallTest {
     private final Mockery mockery = new Mockery();
     private final Repository data = mockery.mock(Repository.class);
     private final Output output = mockery.mock(Output.class);
+    private final TimeProvider timeProvider = mockery.mock(TimeProvider.class);
 
     private final String userName = aString(8);
     private final RequestWall command = new RequestWall(userName);
@@ -35,19 +37,28 @@ public class RequestWallTest {
             will(returnValue(Arrays.asList(wallMessage1, wallMessage2, wallMessage3, wallMessage4)));
         }});
         mockery.checking(new Expectations() {{
-            oneOf(output).displayMessage(command.formatted(wallMessage1));
-            oneOf(output).displayMessage(command.formatted(wallMessage2));
-            oneOf(output).displayMessage(command.formatted(wallMessage3));
-            oneOf(output).displayMessage(command.formatted(wallMessage4));
+            exactly(8).of(timeProvider).now();
+            will(returnValue(new Instant()));
+        }});
+        mockery.checking(new Expectations() {{
+            oneOf(output).displayMessage(command.formatted(wallMessage1, timeProvider));
+            oneOf(output).displayMessage(command.formatted(wallMessage2, timeProvider));
+            oneOf(output).displayMessage(command.formatted(wallMessage3, timeProvider));
+            oneOf(output).displayMessage(command.formatted(wallMessage4, timeProvider));
         }});
 
-        command.execute(data, output);
+        command.execute(data, output, timeProvider);
         mockery.assertIsSatisfied();
     }
 
     @Test
     public void correctFormatting() {
-        assertThat(command.formatted(new WallMessage("Bob", new Message(new Instant().minus(1000), "this is a message"))), is("Bob - this is a message (1 second ago)"));
+        mockery.checking(new Expectations() {{
+            oneOf(timeProvider).now();
+            will(returnValue(new Instant()));
+        }});
+        assertThat(command.formatted(new WallMessage("Bob", new Message(new Instant().minus(1000), "this is a message")), timeProvider), is("Bob - this is a message (1 second ago)"));
+        mockery.assertIsSatisfied();
     }
 
 }

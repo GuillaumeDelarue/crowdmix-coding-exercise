@@ -1,5 +1,7 @@
 package gd.crowdmix.data;
 
+import gd.crowdmix.time.TimeProvider;
+
 import java.util.List;
 
 public interface Repository {
@@ -10,5 +12,5 @@ public interface Repository {
 
     void follow(String user, String userToFollow);
 
-    void publishMessage(String user, String content);
+    void publishMessage(TimeProvider timeProvider, String user, String content);
 }

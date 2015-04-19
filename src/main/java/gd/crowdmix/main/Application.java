@@ -14,9 +14,10 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         final ApplicationAssembly assembly = new ApplicationAssembly(
-                new InMemoryRepository(new CurrentTimeProvider()),
+                new InMemoryRepository(),
                 new TextCommandParser(),
-                new ConsoleOutput());
+                new ConsoleOutput(),
+                new CurrentTimeProvider());
 
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
