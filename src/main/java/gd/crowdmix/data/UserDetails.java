@@ -26,9 +26,9 @@ public class UserDetails extends CaseClassOne<String> {
     }
 
     public List<Message> timeline() {
-        final List<Message> copy = new ArrayList<>(timeline);
-        Collections.sort(copy);
-        return copy;
+        final List<Message> timelineCopy = new ArrayList<>(timeline);
+        Collections.sort(timelineCopy);
+        return timelineCopy;
     }
 
     public List<WallMessage> wall() {
