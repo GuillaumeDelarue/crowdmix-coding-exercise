@@ -30,9 +30,13 @@ public class InMemoryRepository implements Repository {
     }
 
     private UserDetails findOrCreateUser(String username) {
-        final UserDetails newUser = new UserDetails(username);
-        if (!users.contains(newUser)) users.add(newUser);
         for (UserDetails user : users) if (user.name().equals(username)) return user;
-        throw new RuntimeException("Could not create user");
+        return addNewUser(username);
+    }
+
+    private UserDetails addNewUser(String username) {
+        final UserDetails newUser = new UserDetails(username);
+        users.add(newUser);
+        return newUser;
     }
 }
